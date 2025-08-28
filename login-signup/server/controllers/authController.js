@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import pool from "../config/db.js";
+import "dotenv/config.js";
 
 export const loginUser = async (req, res) => {
     try {
@@ -11,7 +13,10 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        const user = users.find((user) => user.username === username);
+        const query = `SELECT * FROM users WHERE username = $1`;
+        const result = await pool.query(query, [username]);
+        const user = result.rows[0];
+
         if (!user) {
             return res.status(401).json({
                 error: "Invalid credentials",

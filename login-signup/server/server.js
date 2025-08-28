@@ -26,7 +26,7 @@ app.get("/", async (req, res) => {
     res.send(`The database name is: ${db.rows[0].current_database}`);
 });
 
-app.post("/login", loginUser);
+app.use("/login", loginUser);
 
 app.listen(PORT, () => {
     console.log(`Server started at port: http://localhost:${PORT}`);

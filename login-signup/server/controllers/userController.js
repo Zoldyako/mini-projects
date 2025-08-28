@@ -5,6 +5,7 @@ import {
     updateUserService,
     deleteUserService,
 } from "../models/userModel.js";
+import bcrypt from "bcryptjs";
 
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({
@@ -18,7 +19,12 @@ export const createUser = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     try {
-        const newUser = await createUserService(username, email, password);
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await createUserService(
+            username,
+            email,
+            hashedPassword,
+        );
         handleResponse(res, 201, "User created successfully", newUser);
     } catch (err) {
         next(err);
