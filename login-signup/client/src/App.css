@@ -4,3 +4,38 @@
     padding: 2rem;
     text-align: center;
 }
+
+.container {
+    background: #404040;
+    padding: 24px 32px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    & div label {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 8px;
+        margin: 0;
+    }
+
+    & div input {
+        background: #555;
+        border: 1px solid #777;
+        border-radius: 4px;
+        height: 24px;
+        width: 256px;
+    }
+
+    & .login-btn {
+        height: 24px;
+        width: 128px;
+    }
+}
