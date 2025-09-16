@@ -1,43 +1,60 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CharacterCard from './components/ui/characterCard';
 import { getCharacterById } from './api/getCharacterById';
 import { Character } from './types/index';
 
 export default function Home() {
-    const [character, setCharacter] = useState<Character>({id: null, name:'', age: '', bounty: ''})
-    const [characterId, setCharacterId] = useState<number>(1);
+    const [characters, setCharacters] = useState<Character[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [page, setPage] = useState<number>(1);
 
-    async function setCharacterCard(characterId: number) {
-        const data = await getCharacterById(characterId);
-        setCharacter(data);
-    }
+    useEffect(() => {
+        const fetchCharacters = async () => {
+            const newCharacter: Character[] = []; 
+            const start: number = page * 10 - 9 
+            const end: number = page * 10;
+            setIsLoading(true);
 
-    function handleChange(event: any) {
-        setCharacterId(event.target.value);
-    }
+            for (let index = start; index <= end; index++) {
+                const characterData = await getCharacterById(index);
+                newCharacter.push(characterData);
+            }
+
+            setIsLoading(false);
+            setCharacters(newCharacter);
+        }
+
+        fetchCharacters();
+    }, [page])
 
     return (
         <>
             <main className='flex flex-col items-center gap-4 mt-16'>
-                <CharacterCard 
-                    id={character.id}
-                    name={character.name}
-                    age={character.age}
-                    bounty={character.bounty}
-                />
-                <label 
-                    htmlFor='characterId' 
-                    className='flex flex-col gap-4'> Type the character ID (number)
-                    <input 
-                        className='border-2 border-solid p-2 rounded-md border-emerald-800' 
-                        type="number" name='characterId'
-                        onChange={(handleChange)} 
+                <div className='flex gap-4 items-center'>
+                    <button className="btn bg-emerald-400 text-black p-4 rounded-xl"
+                        onClick={() => { setPage(page - 1)}}>Previous Page
+                    </button>
+                    <p className='text-xl font-bold'>Page: {page}</p>
+                    <button className="btn bg-emerald-400 text-black p-4 rounded-xl"
+                        onClick={() => { setPage(page + 1)}}>Next Page
+                    </button>
+                </div>
+                <div className="h-4">
+                    <p>{isLoading ? 'Loading characters' : ''}</p>
+                </div>
+                <div className='flex flex-wrap justify-center gap-8'>
+                    {characters.map((character)=> (
+                        <CharacterCard key={character.id}
+                        id={character.id}
+                        name={character.name}
+                        age={character.age}
+                        bounty={character.bounty}
                         />
-                </label>
-                <button className="btn bg-emerald-400 text-black p-4 rounded-xl"
-                    onClick={() => setCharacterCard(characterId)}>New Character</button>
+                    ))}
+                </div>
+
             </main>
         </>
     );
