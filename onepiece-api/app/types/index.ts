@@ -1,5 +1,5 @@
 export type Character = {
-    id: number | null,
+    id: number | string,
     name: string,
     age: string,
     bounty: string,

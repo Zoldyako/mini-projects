@@ -19,7 +19,9 @@ export default function Home() {
             try {
                 const start: number = (page - 1) * pageSize + 1;
                 const ids = Array.from({ length: pageSize }, (_, i) => start + i);
-                const newCharacters: Character[] = await Promise.all(ids.map((id) => getCharacterById(id)));
+                const newCharacters: Character[] = await Promise.all(
+                    ids.map((id) => getCharacterById(id))
+                );
                 if (!isCanceled) setCharacters(newCharacters);
             } finally {
                 if (!isCanceled) setIsLoading(false);
@@ -35,9 +37,27 @@ export default function Home() {
     return (
         <>
             <main className='flex flex-col items-center gap-4 mt-16'>
+                <div className='flex flex-col items-center w-full max-w-screen-sm mx-4'>
+                    <div className='font-bold w-full'>
+                        <CharacterCard id='ID' name='Name' age='Age' bounty='Bounty (Berry)' />
+                    </div>
+                    {characters.map((character) => {
+                        const { id, name, age, bounty } = character;
+
+                        return (
+                            <CharacterCard
+                                key={id}
+                                id={id}
+                                name={name}
+                                age={age ? age : 'Unkown'}
+                                bounty={bounty ? bounty : 'Unknown'}
+                            />
+                        );
+                    })}
+                </div>
                 <div className='flex gap-4 items-center'>
                     <button
-                        className='btn bg-emerald-400 text-black p-4 rounded-xl'
+                        className='btn bg-sky-600 text-gray-950 font-bold py-2 px-4 rounded-xl hover:bg-sky-400 active:bg-sky-900'
                         onClick={() => {
                             setPage(page - 1);
                         }}>
@@ -45,7 +65,7 @@ export default function Home() {
                     </button>
                     <p className='text-xl font-bold'>Page: {page}</p>
                     <button
-                        className='btn bg-emerald-400 text-black p-4 rounded-xl'
+                        className='btn bg-sky-600 text-gray-950 font-bold py-2 px-4 rounded-xl hover:bg-sky-400 active:bg-sky-900'
                         onClick={() => {
                             setPage(page + 1);
                         }}>
@@ -53,18 +73,7 @@ export default function Home() {
                     </button>
                 </div>
                 <div className='h-4'>
-                    <p>{isLoading ? 'Loading characters' : ''}</p>
-                </div>
-                <div className='flex flex-wrap justify-center gap-8'>
-                    {characters.map((character) => (
-                        <CharacterCard
-                            key={character.id}
-                            id={character.id}
-                            name={character.name}
-                            age={character.age}
-                            bounty={character.bounty}
-                        />
-                    ))}
+                    <p className={`text-emerald-400 font-bold text ${isLoading ? 'inline' : 'hidden'}`}>Loading Characters</p>
                 </div>
             </main>
         </>
