@@ -1,9 +1,10 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 import { Character } from '../types';
 import CharacterCard from '../components/ui/characterCard';
 import { getCharacterById } from '../api/getCharacterById';
+import Button from '../components/ui/button';
 
 export default function Characters() {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -56,21 +57,9 @@ export default function Characters() {
                     })}
                 </div>
                 <div className='flex gap-4 items-center'>
-                    <button
-                        className='btn bg-sky-600 text-gray-950 font-bold py-2 px-4 rounded-xl hover:bg-sky-400 active:bg-sky-900'
-                        onClick={() => {
-                            setPage(page - 1);
-                        }}>
-                        Previous Page
-                    </button>
+                    <Button text='Previous Page' handleClick={() => setPage(page - 1)} />
                     <p className='text-xl font-bold'>Page: {page}</p>
-                    <button
-                        className='btn bg-sky-600 text-gray-950 font-bold py-2 px-4 rounded-xl hover:bg-sky-400 active:bg-sky-900'
-                        onClick={() => {
-                            setPage(page + 1);
-                        }}>
-                        Next Page
-                    </button>
+                    <Button text='Next Page' handleClick={() => setPage(page + 1)} />
                 </div>
                 <div className='h-4'>
                     <p
