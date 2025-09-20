@@ -27,7 +27,7 @@ export default function RootLayout({
         <html lang='en'>
             <body className={`flex overflow-hidden ${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <SideBar />
-                <div className='flex justify-center grow'>
+                <div className='flex justify-center items-center grow'>
                     {children}
                 </div>
             </body>
