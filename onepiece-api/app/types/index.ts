@@ -4,3 +4,11 @@ export type Character = {
     age: string,
     bounty: string,
 }
+
+export type Fruit = {
+    id: number | string,
+    name: string,
+    romanName: string,
+    type: string,
+    description: string,
+}
