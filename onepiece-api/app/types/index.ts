@@ -8,7 +8,6 @@ export type Character = {
 export type Fruit = {
     id: number | string,
     name: string,
-    romanName: string,
     type: string,
     description: string,
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Character } from '../types';
 import CharacterCard from '../components/ui/characterCard';
 import { getCharacterById } from '../api/getCharacterById';
-import Button from '../components/ui/button';
+import Button from '../components/ui/Button';
 
 export default function Characters() {
     const [characters, setCharacters] = useState<Character[]>([]);
