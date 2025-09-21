@@ -2,7 +2,6 @@ export type Character = {
     id: number | string,
     name: string,
     job: string,
-    birthday: string
     age: string,
     bounty: string,
     crew: {
