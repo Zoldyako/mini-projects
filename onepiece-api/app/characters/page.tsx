@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Character } from '../types';
-import CharacterCard from '../components/ui/CharacterCard';
-import { getCharacterById } from '../api/characters';
-import Button from '../components/ui/Button';
-import CardContainer from '../components/ui/CardContainer';
-import Loading from '../components/ui/Loading';
+import { Character } from '../../types';
+import CharacterCard from '../../components/ui/CharacterCard';
+import { getCharacterById } from '../../api/characters';
+import Button from '../../components/ui/Button';
+import CardContainer from '../../components/ui/CardContainer';
+import Loading from '../../components/ui/Loading';
 
 export default function Characters() {
     const [characters, setCharacters] = useState<Character[]>([]);

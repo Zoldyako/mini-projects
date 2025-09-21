@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "node_modules": true,
+        "pnpm-workspace.yaml": true,
+        "pnpm-lock.yaml": true,
+        ".gitignore": true,
+        ".next": true
+    }
+}

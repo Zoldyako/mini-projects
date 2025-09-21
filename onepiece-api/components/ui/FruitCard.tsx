@@ -1,4 +1,4 @@
-import { Fruit } from '@/app/types';
+import { Fruit } from '@/types';
 import Tag from './Tag';
 
 export default function FruitCard({ id, name, type, description }: Fruit) {

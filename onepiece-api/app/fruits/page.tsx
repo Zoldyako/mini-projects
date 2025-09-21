@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CardContainer from '../components/ui/CardContainer';
-import FruitCard from '../components/ui/FruitCard';
-import Button from '../components/ui/Button';
-import { getFruitsById } from '../api/fruits';
-import { Fruit } from '../types';
-import Loading from '../components/ui/Loading';
+import CardContainer from '../../components/ui/CardContainer';
+import FruitCard from '../../components/ui/FruitCard';
+import Button from '../../components/ui/Button';
+import { getFruitsById } from '../../api/fruits';
+import { Fruit } from '../../types';
+import Loading from '../../components/ui/Loading';
 
 export default function DevilFruits() {
     const [fruit, setFruit] = useState<Fruit>({
