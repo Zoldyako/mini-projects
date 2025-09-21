@@ -1,8 +1,16 @@
 export type Character = {
     id: number | string,
     name: string,
+    job: string,
+    birthday: string
     age: string,
     bounty: string,
+    crew: {
+        id: string,
+        name: string
+        description: string,
+        status: string,
+    }
 }
 
 export type Fruit = {

@@ -6,6 +6,7 @@ import FruitCard from '../components/ui/FruitCard';
 import Button from '../components/ui/Button';
 import { getFruitsById } from '../api/fruits';
 import { Fruit } from '../types';
+import Loading from '../components/ui/Loading';
 
 export default function DevilFruits() {
     const [fruit, setFruit] = useState<Fruit>({
@@ -41,6 +42,7 @@ export default function DevilFruits() {
     return (
         <>
             <div className='flex flex-col items-center w-md'>
+                <Loading isLoading={isLoading} />
                 <CardContainer
                     children={
                         <FruitCard
@@ -56,12 +58,6 @@ export default function DevilFruits() {
                     <p className='font-bold'>{fruit.id}</p>
                     <Button text='Next' handleClick={() => setFruitNumber(fruitNumber + 1)} />
                 </div>
-                <p
-                    className={`absolute top-40 font-bold bg-green-600 px-3 py-1 rounded-lg ${
-                        isLoading ? '' : 'hidden'
-                    }`}>
-                    Loading Fruit
-                </p>
             </div>
         </>
     );

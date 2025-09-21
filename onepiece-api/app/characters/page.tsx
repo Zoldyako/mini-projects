@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { Character } from '../types';
-import CharacterCard from '../components/ui/characterCard';
+import CharacterCard from '../components/ui/CharacterCard';
 import { getCharacterById } from '../api/getCharacterById';
 import Button from '../components/ui/Button';
+import CardContainer from '../components/ui/CardContainer';
+import Loading from '../components/ui/Loading';
 
 export default function Characters() {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -36,40 +38,33 @@ export default function Characters() {
     }, [page]);
 
     return (
-        <>
-            <div className='flex flex-col items-center justify-center gap-4'>
-                <div className='flex flex-col justify-end items-center w-full max-w-screen-sm mx-4'>
-                    <div className='font-bold w-full'>
-                        <CharacterCard id='ID' name='Name' age='Age' bounty='Bounty (Berry)' />
-                    </div>
-                    {characters.map((character) => {
-                        const { id, name, age, bounty } = character;
-
-                        return (
-                            <CharacterCard
-                                key={id}
-                                id={id}
-                                name={name}
-                                age={age ? age : 'Unkown'}
-                                bounty={bounty ? bounty : 'Unknown'}
-                            />
-                        );
-                    })}
-                </div>
-                <div className='flex gap-4 items-center'>
-                    <Button text='Previous Page' handleClick={() => setPage(page - 1)} />
-                    <p className='text-xl font-bold'>Page: {page}</p>
-                    <Button text='Next Page' handleClick={() => setPage(page + 1)} />
-                </div>
-                <div className='h-4'>
-                    <p
-                        className={`text-emerald-400 font-bold text ${
-                            isLoading ? 'inline' : 'hidden'
-                        }`}>
-                        Loading Characters
-                    </p>
-                </div>
+        <div className='flex flex-col items-center gap-8'>
+            <Loading isLoading={isLoading}/>
+            <div className='flex flex-wrap justify-center gap-8 mx-4'>
+                {characters.map((character) => {
+                    const { id, name, job, age, bounty, crew } = character;
+                    return (
+                        <CardContainer
+                            children={
+                                <CharacterCard
+                                    key={id}
+                                    id={id}
+                                    name={name}
+                                    job={job}
+                                    age={age ? age : 'Unkown'}
+                                    bounty={bounty ? bounty : 'Unknown'}
+                                    crew={crew}
+                                />
+                            }
+                        />
+                    );
+                })}
             </div>
-        </>
+            <div className='flex gap-4 items-center'>
+                <Button text='Previous Page' handleClick={() => setPage(page - 1)} />
+                <p className='text-xl font-bold'>Page: {page}</p>
+                <Button text='Next Page' handleClick={() => setPage(page + 1)} />
+            </div>
+        </div>
     );
 }
