@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Character } from '../types';
 import CharacterCard from '../components/ui/CharacterCard';
-import { getCharacterById } from '../api/getCharacterById';
+import { getCharacterById } from '../api/characters';
 import Button from '../components/ui/Button';
 import CardContainer from '../components/ui/CardContainer';
 import Loading from '../components/ui/Loading';
@@ -39,20 +39,20 @@ export default function Characters() {
 
     return (
         <div className='flex flex-col items-center gap-8'>
-            <Loading isLoading={isLoading}/>
+            <Loading isLoading={isLoading} />
             <div className='flex flex-wrap justify-center gap-8 mx-4'>
                 {characters.map((character) => {
                     const { id, name, job, age, bounty, crew } = character;
                     return (
                         <CardContainer
+                            key={id}
                             children={
                                 <CharacterCard
-                                    key={id}
                                     id={id}
                                     name={name}
-                                    job={job}
-                                    age={age ? age : 'Unkown'}
-                                    bounty={bounty ? bounty : 'Unknown'}
+                                    job={`Job — ${job ? job : 'Unkon'}`}
+                                    age={`Age — ${age ? age : 'Unkown'}`}
+                                    bounty={`Bounty — ${bounty ? bounty : 'Unknown'}`}
                                     crew={crew}
                                 />
                             }
@@ -61,7 +61,13 @@ export default function Characters() {
                 })}
             </div>
             <div className='flex gap-4 items-center'>
-                <Button text='Previous Page' handleClick={() => setPage(page - 1)} />
+                <Button
+                    text='Previous Page'
+                    handleClick={() => {
+                        if (page - 1 <= 0) return; 
+                        setPage(page - 1);
+                    }}
+                />
                 <p className='text-xl font-bold'>Page: {page}</p>
                 <Button text='Next Page' handleClick={() => setPage(page + 1)} />
             </div>
