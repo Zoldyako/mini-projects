@@ -54,7 +54,13 @@ export default function DevilFruits() {
                     }
                 />
                 <div className='flex items-center justify-center gap-6 w-sm mt-4'>
-                    <Button text='Prev' handleClick={() => setFruitNumber(fruitNumber - 1)} />
+                    <Button
+                        text='Prev'
+                        handleClick={() => {
+                            if (fruitNumber - 1 <= 0) return;
+                            setFruitNumber(fruitNumber - 1);
+                        }}
+                    />
                     <p className='font-bold'>{fruit.id}</p>
                     <Button text='Next' handleClick={() => setFruitNumber(fruitNumber + 1)} />
                 </div>
